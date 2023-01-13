@@ -4,16 +4,22 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
-@ConfigGroup("example")
+@ConfigGroup("rarelootidentifier")
 public interface RareLootIdentifierConfig extends Config
 {
 	@ConfigItem(
-		keyName = "greeting",
-		name = "Welcome Greeting",
-		description = "The message to show to the user when they login"
+			keyName = "enableBossDropIDs",
+			name = "Enable Boss Drop IDs",
+			description = "Enable this to show the drop rate of items from all of Runescape's bosses",
+			position = 0
 	)
-	default String greeting()
-	{
-		return "Hello";
-	}
+	default boolean showBossDropID() { return true; }
+
+	@ConfigItem(
+			keyName = "showAllNPCDropIDs",
+			name = "Enable All NPC Drop IDs",
+			description = "temp",
+			position = 1
+	)
+	default boolean showAllNPCDropID() { return false; }
 }
