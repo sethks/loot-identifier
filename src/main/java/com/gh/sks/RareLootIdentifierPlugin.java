@@ -17,6 +17,7 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.loottracker.LootReceived;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,12 +80,6 @@ public class RareLootIdentifierPlugin extends Plugin
 		if (opponent == null) { return; }
 
 		lastOpponent = opponent;
-		if(ListOfBosses.listOfBosses.contains(opponent.getName()))
-		{
-
-		}
-
-		//sendChatMessage(opponent.getName());
 	}
 
 	private void sendChatMessage(String chatMessage)
@@ -99,5 +94,13 @@ public class RareLootIdentifierPlugin extends Plugin
 						.type(ChatMessageType.CONSOLE)
 						.runeLiteFormattedMessage(message)
 						.build());
+	}
+	@Subscribe
+	private void onLootReceived(LootReceived event)
+	{
+		if(ListOfBosses.listOfBosses.contains(lastOpponent.getName()))
+		{
+			sendChatMessage(event.getItems().toString());
+		}
 	}
 }
