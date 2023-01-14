@@ -91,6 +91,7 @@ public class RareLootIdentifierPlugin extends Plugin
 						.runeLiteFormattedMessage(message)
 						.build());
 	}
+
 	@Subscribe
 	private void onLootReceived(LootReceived event)
 	{

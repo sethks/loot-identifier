@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class ListOfBosses
 {
     public static ArrayList<String> listOfBosses = new ArrayList<>();
+    public static ArrayList<String> listOfNUItems = new ArrayList<>();
+    public static ArrayList<String> listOfUItems = new ArrayList<>();
 
     public static void setListOfBosses()
     {
@@ -68,6 +70,11 @@ public class ListOfBosses
         listOfBosses.add("Corporeal Beast");
         listOfBosses.add("The Nightmare");
         listOfBosses.add("Phantom Muspah");
+    }
+
+    public static void setListOfNUItems()
+    {
+        listOfNUItems.add("temp");
     }
 
 
