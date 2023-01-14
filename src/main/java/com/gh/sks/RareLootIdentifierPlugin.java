@@ -20,6 +20,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.loottracker.LootReceived;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -64,11 +65,6 @@ public class RareLootIdentifierPlugin extends Plugin
 		}
 	}
 
-//	private void checkItemFromBoss()
-//	{
-//
-//	}
-
 	@Subscribe
 	private void onInteractingChanged(InteractingChanged event)
 	{
@@ -100,7 +96,15 @@ public class RareLootIdentifierPlugin extends Plugin
 	{
 		if(ListOfBosses.listOfBosses.contains(lastOpponent.getName()))
 		{
-			sendChatMessage(event.getItems().toString());
+			String lootId = event.getItems().toString();
+
 		}
 	}
+
+//	if(ListOfBosses.listOfBosses.contains(lastOpponent.getName()))
+//	{
+//		String lootId = event.getItems().toString();
+//		if(lootId.contains("id=877"))
+//			sendChatMessage("You Got Bronze Bolts Lol");
+//	}
 }
