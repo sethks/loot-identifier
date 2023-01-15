@@ -2,6 +2,7 @@ package com.gh.sks;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import java.util.Map.Entry;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -29,6 +30,7 @@ import java.util.List;
 )
 public class RareLootIdentifierPlugin extends Plugin
 {
+
 	@Inject
 	private Client client;
 
@@ -48,6 +50,7 @@ public class RareLootIdentifierPlugin extends Plugin
 	protected void startUp() throws Exception
 	{
 		ListOfBosses.setListOfBosses();
+		ListOfBosses.setMap();
 	}
 
 	@Override
@@ -95,11 +98,31 @@ public class RareLootIdentifierPlugin extends Plugin
 	@Subscribe
 	private void onLootReceived(LootReceived event)
 	{
-		if(ListOfBosses.listOfBosses.contains(lastOpponent.getName()))
+		if(ListOfBosses.listOfBosses.contains(lastOpponent.getName()) && config.showNUBossDropID())
 		{
-			String lootId = event.getItems().toString();
+			//[ItemStack(id=526, quantity=1,
+			String lootStack = event.getItems().toString();
+			String lootID = lootStack.substring(11,17);
+			String currentItem = "";
 
+//			if(config.showAllBossDropID())
+//			{
+//				return;
+//			}
+
+			if(ListOfBosses.map.containsValue(lootID))
+			{
+				for(Entry<String, String> entry: ListOfBosses.map.entrySet())
+				{
+					if(entry.getValue().equals(lootID))
+					{
+						currentItem = entry.getKey();
+						sendChatMessage("You got " + currentItem + " from " + lastOpponent.getName());
+					}
+				}
+			}
 		}
+		lastOpponent = null;
 	}
 
 //	if(ListOfBosses.listOfBosses.contains(lastOpponent.getName()))

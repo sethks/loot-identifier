@@ -8,18 +8,18 @@ import net.runelite.client.config.ConfigItem;
 public interface RareLootIdentifierConfig extends Config
 {
 	@ConfigItem(
-			keyName = "enableBossDropIDs",
-			name = "Enable Boss Drop IDs",
-			description = "Enable this to show the drop rate of items from all of Runescape's bosses",
+			keyName = "enableNUBossDropIDs",
+			name = "Enable Non-Unique Boss Drops",
+			description = "Enable this to show the drop rate of non-unique items ONLY from all of Runescape's bosses",
 			position = 0
 	)
-	default boolean showBossDropID() { return true; }
+	default boolean showNUBossDropID() { return true; }
 
 	@ConfigItem(
-			keyName = "showAllNPCDropIDs",
-			name = "Enable All NPC Drop IDs",
-			description = "temp",
+			keyName = "showAllBossDropIDs",
+			name = "Enable All Boss Drops",
+			description = "Enable this to show the drop rate of all 'rare' items from all of Runescape's bosses",
 			position = 1
 	)
-	default boolean showAllNPCDropID() { return false; }
+	default boolean showAllBossDropID() { return false; }
 }

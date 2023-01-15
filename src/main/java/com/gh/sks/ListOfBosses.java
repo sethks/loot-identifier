@@ -1,6 +1,7 @@
 package com.gh.sks;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ListOfBosses
 {
@@ -8,8 +9,13 @@ public class ListOfBosses
     public static ArrayList<String> listOfNUItems = new ArrayList<>();
     public static ArrayList<String> listOfUItems = new ArrayList<>();
 
+    public static HashMap<String, String> map = new HashMap<>();
+
     public static void setListOfBosses()
     {
+
+        listOfBosses.add("Guard"); //temporary for testing.
+
         // Slayer Bosses
         listOfBosses.add("Dusk");
         listOfBosses.add("Dawn");
@@ -75,6 +81,12 @@ public class ListOfBosses
     public static void setListOfNUItems()
     {
         listOfNUItems.add("temp");
+
+    }
+
+    public static void setMap()
+    {
+        map.put("Bonezzzz", "id=526");
     }
 
 
