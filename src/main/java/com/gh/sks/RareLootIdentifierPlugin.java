@@ -20,10 +20,6 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.loottracker.LootReceived;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 @Slf4j
 @PluginDescriptor(
 	name = "Rare Loot Identifier"
@@ -41,7 +37,7 @@ public class RareLootIdentifierPlugin extends Plugin
 	private ChatMessageManager chatMessageManager;
 
 	@Getter(AccessLevel.PACKAGE)
-	private Actor lastOpponent;
+	private Actor lastOpponent; // Used to get the actor the player is fighting
 
 	@Provides
 	RareLootIdentifierConfig provideConfig(ConfigManager configManager) { return configManager.getConfig(RareLootIdentifierConfig.class); }
@@ -49,8 +45,8 @@ public class RareLootIdentifierPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		ListOfBosses.setListOfBosses();
-		ListOfBosses.setMap();
+		ListOfBosses.setListOfBosses(); // Instantiate our maps from ListOfBosses on startup
+		ListOfBosses.setNUMap();
 	}
 
 	@Override
@@ -68,6 +64,7 @@ public class RareLootIdentifierPlugin extends Plugin
 		}
 	}
 
+	// RL Method to obtain the actor being interacted/attacked
 	@Subscribe
 	private void onInteractingChanged(InteractingChanged event)
 	{
@@ -81,6 +78,7 @@ public class RareLootIdentifierPlugin extends Plugin
 		lastOpponent = opponent;
 	}
 
+	// RL Method that manages sending messages to the players chat when an item is received
 	private void sendChatMessage(String chatMessage)
 	{
 		String message = new ChatMessageBuilder()
@@ -95,14 +93,27 @@ public class RareLootIdentifierPlugin extends Plugin
 						.build());
 	}
 
+	// Formats the String obtained from onLootReceived in a more workable format for checking with the maps in ListOfBosses
+	private String formatLoot(String lootStackInformation)
+	{
+		//splitLootStack[2] = (id=426, quantity=
+		String[] splitLootStack = lootStackInformation.split("ItemStack");
+		String[] cleanIDArray = splitLootStack[2].substring(1).split(",");
+		String formattedString = cleanIDArray[0];
+
+		return formattedString;
+	}
+
+	// RL Method to obtain the information about the item that is received from drops
 	@Subscribe
-	private void onLootReceived(LootReceived event)
+	private void onLootReceived(final LootReceived event)
 	{
 		if(ListOfBosses.listOfBosses.contains(lastOpponent.getName()) && config.showNUBossDropID())
 		{
-			//[ItemStack(id=526, quantity=1,
-			String lootStack = event.getItems().toString();
-			String lootID = lootStack.substring(11,17);
+			String lootStack = event.getItems().toString().substring(1);
+			String lootID = "";
+			if((lootStack.length()) > 1)
+				lootID = formatLoot(lootStack);
 			String currentItem = "";
 
 //			if(config.showAllBossDropID())
@@ -110,25 +121,17 @@ public class RareLootIdentifierPlugin extends Plugin
 //				return;
 //			}
 
-			if(ListOfBosses.map.containsValue(lootID))
+			if(ListOfBosses.mapOfNUItems.containsValue(lootID))
 			{
-				for(Entry<String, String> entry: ListOfBosses.map.entrySet())
+				for(Entry<String, String> entry: ListOfBosses.mapOfNUItems.entrySet())
 				{
 					if(entry.getValue().equals(lootID))
 					{
 						currentItem = entry.getKey();
-						sendChatMessage("You got " + currentItem + " from " + lastOpponent.getName());
+						sendChatMessage("You got " + currentItem + " from a " + lastOpponent.getName());
 					}
 				}
 			}
 		}
-		lastOpponent = null;
 	}
-
-//	if(ListOfBosses.listOfBosses.contains(lastOpponent.getName()))
-//	{
-//		String lootId = event.getItems().toString();
-//		if(lootId.contains("id=877"))
-//			sendChatMessage("You Got Bronze Bolts Lol");
-//	}
 }

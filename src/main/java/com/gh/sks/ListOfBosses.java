@@ -6,15 +6,13 @@ import java.util.HashMap;
 public class ListOfBosses
 {
     public static ArrayList<String> listOfBosses = new ArrayList<>();
-    public static ArrayList<String> listOfNUItems = new ArrayList<>();
-    public static ArrayList<String> listOfUItems = new ArrayList<>();
-
-    public static HashMap<String, String> map = new HashMap<>();
+    public static HashMap<String, String> mapOfNUItems = new HashMap<>();
+    public static HashMap<String, String> mapOfAllItems = new HashMap<>();
 
     public static void setListOfBosses()
     {
 
-        listOfBosses.add("Guard"); //temporary for testing.
+        //listOfBosses.add("Guard"); //temporary for testing.
 
         // Slayer Bosses
         listOfBosses.add("Dusk");
@@ -78,16 +76,17 @@ public class ListOfBosses
         listOfBosses.add("Phantom Muspah");
     }
 
-    public static void setListOfNUItems()
+    public static void setNUMap()
     {
-        listOfNUItems.add("temp");
-
+        mapOfNUItems.put("Iron Bolts", "id=9140");
+        mapOfNUItems.put("Onion Seed", "id=5319");
     }
 
-    public static void setMap()
+    public static void setAllMap()
     {
-        map.put("Bonezzzz", "id=526");
+        //TO-DO
     }
+
 
 
 }
