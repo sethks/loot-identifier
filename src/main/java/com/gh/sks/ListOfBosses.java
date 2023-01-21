@@ -81,6 +81,7 @@ public class ListOfBosses
     public static void setAllMap()
     {
         mapOfAllItems.put("teset something", "id=232");
+        mapOfAllItems.put("anoter test", "sdfsdf");
     }
 
 
