@@ -80,7 +80,7 @@ public class ListOfBosses
 
     public static void setAllMap()
     {
-
+        mapOfAllItems.put("sdfsdf", "sdfsd");
     }
 
 
