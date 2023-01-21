@@ -75,19 +75,12 @@ public class ListOfBosses
 
     public static void setNUMap()
     {
-        mapOfNUItems.put("Grimy dwarf weed", "id=218"); // 1/108
-        mapOfNUItems.put("Grimy kwuarm", "id=214"); // 1/97
-        mapOfNUItems.put("Grimy cadantine", "id=216"); // 1/108
-        mapOfNUItems.put("Grimy lantadyme", "id=2486"); // 1/139
-
-
-
 
     }
 
     public static void setAllMap()
     {
-        //TO-DO
+        mapOfAllItems.put("teset something", "id=232");
     }
 
 
