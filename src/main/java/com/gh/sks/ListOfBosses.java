@@ -75,7 +75,9 @@ public class ListOfBosses
 
     public static void setNUMap()
     {
-
+        mapOfAllItems.put("test item1", "1");
+        mapOfAllItems.put("test item2", "2");
+        mapOfAllItems.put("test item3", "3");
     }
 
     public static void setAllMap()
